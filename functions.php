@@ -33,6 +33,20 @@ function pwt_child_is_plugin_active(): bool
 }
 
 /**
+ * Read the site's contact details from the plugin settings.
+ */
+function pwt_child_contact_details(): array
+{
+    $settings = (array) get_option('pwt_settings', []);
+
+    return [
+        'phone' => sanitize_text_field((string) ($settings['contact_phone'] ?? '')),
+        'email' => sanitize_email((string) ($settings['contact_email'] ?? get_option('admin_email'))),
+        'whatsapp' => preg_replace('/[^0-9]/', '', (string) ($settings['whatsapp_number'] ?? '')),
+    ];
+}
+
+/**
  * Absolute path to the plugin template directory.
  */
 function pwt_child_plugin_templates_path(): string

@@ -14,6 +14,14 @@ defined('ABSPATH') || exit;
  */
 function pwt_child_register_block_features(): void
 {
+    $whatsappNumber = pwt_child_contact_details()['whatsapp'];
+    $contactUrl = $whatsappNumber !== ''
+        ? 'https://wa.me/' . rawurlencode($whatsappNumber)
+        : home_url('/contact-us/');
+    $contactLabel = $whatsappNumber !== ''
+        ? __('WhatsApp Us', 'wildtours-plugin')
+        : __('Contact Us', 'wildtours-plugin');
+
     if (function_exists('register_block_style')) {
         register_block_style(
             'core/group',
@@ -122,7 +130,7 @@ function pwt_child_register_block_features(): void
                 '<div class="wp-block-group alignwide is-style-pwt-surface-card has-base-background-color has-background" style="border-radius:18px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px">' .
                 '<!-- wp:columns {"verticalAlignment":"center"} --><div class="wp-block-columns are-vertically-aligned-center">' .
                 '<!-- wp:column {"verticalAlignment":"center","width":"68%"} --><div class="wp-block-column is-vertically-aligned-center" style="flex-basis:68%"><!-- wp:heading {"level":3} --><h3>' . esc_html__('Need Instant Booking Help?', 'wildtours-plugin') . '</h3><!-- /wp:heading --><!-- wp:paragraph --><p>' . esc_html__('Talk to our travel desk for package selection, dates, and permit guidance.', 'wildtours-plugin') . '</p><!-- /wp:paragraph --></div><!-- /wp:column -->' .
-                '<!-- wp:column {"verticalAlignment":"center","width":"32%"} --><div class="wp-block-column is-vertically-aligned-center" style="flex-basis:32%"><!-- wp:buttons {"layout":{"type":"flex","justifyContent":"right"},"className":"is-style-pwt-cta-row"} --><div class="wp-block-buttons is-style-pwt-cta-row"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/booking/">' . esc_html__('Book Now', 'wildtours-plugin') . '</a></div><!-- /wp:button --><!-- wp:button {"className":"is-style-outline"} --><div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="https://wa.me/919000000000" target="_blank" rel="noopener noreferrer">' . esc_html__('WhatsApp Us', 'wildtours-plugin') . '</a></div><!-- /wp:button --></div><!-- /wp:buttons --></div><!-- /wp:column -->' .
+                '<!-- wp:column {"verticalAlignment":"center","width":"32%"} --><div class="wp-block-column is-vertically-aligned-center" style="flex-basis:32%"><!-- wp:buttons {"layout":{"type":"flex","justifyContent":"right"},"className":"is-style-pwt-cta-row"} --><div class="wp-block-buttons is-style-pwt-cta-row"><!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/booking/">' . esc_html__('Book Now', 'wildtours-plugin') . '</a></div><!-- /wp:button --><!-- wp:button {"className":"is-style-outline"} --><div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="' . esc_url($contactUrl) . '" target="_blank" rel="noopener noreferrer">' . esc_html($contactLabel) . '</a></div><!-- /wp:button --></div><!-- /wp:buttons --></div><!-- /wp:column -->' .
                 '</div><!-- /wp:columns -->' .
                 '</div><!-- /wp:group -->',
         ]
